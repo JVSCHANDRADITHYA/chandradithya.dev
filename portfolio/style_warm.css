@@ -24,7 +24,7 @@
     /* ── Borders & glow ── */
     --border:       rgba(212,165,90,0.11);
     --border-hover: rgba(212,165,90,0.30);
-    --glow:    0 0 14px rgba(200,140,60,0.28);
+    --glow:    0 0 14px rgba(223, 157, 72, 0.28);
     --glow-lg: 0 0 42px rgba(200,140,60,0.16);
 
     --pad: clamp(24px, 5vw, 80px);
@@ -199,15 +199,16 @@
     font-size: 0.9em;
   }
 
-  .typing-word {
-    color: var(--accent);
-    text-shadow: var(--glow);
-    position: relative;
-    white-space: nowrap;
-  }
+.typing-word {
+  color: var(--red);
+  text-shadow: var(--glow);
+  position: relative;
+  white-space: nowrap;
+}
+
   .typing-cursor {
     display: inline-block; width: 4px;
-    background: var(--accent);
+    background: var(--red);
     animation: blink 0.9s step-end infinite;
     vertical-align: baseline;
     margin-left: 2px;
@@ -249,8 +250,8 @@
   }
   .hero-avatar {
     width: 220px; height: 220px; border-radius: 50%;
-    border: 2px solid rgba(212,165,90,0.28);
-    box-shadow: 0 0 0 8px rgba(212,165,90,0.05), var(--glow-lg);
+    border: 2px solid rgba(241, 237, 231, 0.28);
+    box-shadow: 0 0 0 8px rgba(212,165,90,0.05), var(--bg) 0 0 0 12px;
     object-fit: cover; display: block;
     background: var(--bg2);
     position: relative; overflow: hidden;
@@ -454,21 +455,21 @@
     background: var(--border);
   }
   .github-card {
-    background: var(--bg1); padding: 28px 32px;
+    background: var(--bg); padding: 28px 32px;
     display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px;
     text-decoration: none; transition: background 0.2s;
   }
-  .github-card:hover { background: var(--bg2); }
+  .github-card:hover { background: var(--bg1); }
   .github-info { display: flex; align-items: center; gap: 16px; }
   .github-icon { font-size: 24px; }
   .github-label { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
   .github-sub { font-size: 12px; color: var(--muted); font-family: 'DM Mono', monospace; }
   .github-stats { display: flex; gap: 32px; }
   .gh-stat { text-align: center; }
-  .gh-stat-num { font-size: 22px; font-weight: 700; color: var(--accent); letter-spacing: -0.04em; text-shadow: var(--glow); }
+  .gh-stat-num { font-size: 22px; font-weight: 700; color: #e6d6d6; letter-spacing: -0.04em; text-shadow: var(--glow); }
   .gh-stat-label { font-size: 10px; color: var(--muted); font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; }
   .github-cta {
-    font-size: 12px; color: var(--accent); border: 1px solid rgba(212,165,90,0.30);
+    font-size: 12px; color: #e6d6d6; border: 1px solid rgba(212,165,90,0.30);
     padding: 8px 18px; border-radius: 6px; font-family: 'DM Mono', monospace;
     transition: all 0.2s;
   }
@@ -482,7 +483,7 @@
     margin-top: 32px;
   }
   .oss-card {
-    background: var(--bg1); padding: 24px;
+    background: var(--bg); padding: 24px;
     text-decoration: none; transition: background 0.2s;
   }
   .oss-card:hover { background: var(--bg2); }

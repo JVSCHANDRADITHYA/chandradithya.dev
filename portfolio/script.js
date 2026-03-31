@@ -93,12 +93,12 @@
         ctx.stroke();
       }
 
-      ctx.shadowColor = '#4cc9ff';
+      ctx.shadowColor = '#dfcbc4';
       ctx.shadowBlur = 5;
       for(const [px,py,d] of proj){
         ctx.beginPath();
         ctx.arc(px,py,1+d*1.2,0,Math.PI*2);
-        ctx.fillStyle = `rgba(76,201,255,${0.5+d*0.4})`;
+        ctx.fillStyle = `rgba(223,203,196,${0.5+d*0.4})`;
         ctx.fill();
       }
       ctx.shadowBlur = 0;
