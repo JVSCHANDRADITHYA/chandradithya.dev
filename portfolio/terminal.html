@@ -37,7 +37,6 @@ html, body {
   overflow: hidden;
 }
 
-/* ── dot-grid background ── */
 body::before {
   content:'';
   position:fixed; inset:0; z-index:0;
@@ -46,7 +45,6 @@ body::before {
   pointer-events:none;
 }
 
-/* ── custom cursor ── */
 #cur {
   position:fixed; width:3px; height:3px; border-radius:50%;
   background: var(--acc); pointer-events:none; z-index:9999;
@@ -68,43 +66,16 @@ body:has(a:hover) #cur-r {
   border-color: rgba(255,107,53,.9);
 }
 
-
 /* ══════════════════════════════════════════
-   BOOT
-══════════════════════════════════════════ */
-#boot {
-  position:fixed; inset:0; z-index:100;
-  background: var(--bg);
-  display:flex; flex-direction:column; justify-content:center; align-items:flex-start;
-  padding: 4rem 6rem;
-  transition: opacity .6s;
-}
-#boot.hide { opacity:0; pointer-events:none; }
-#boot-lines { display:flex; flex-direction:column; gap:.3rem; }
-.boot-line { font-size:.72rem; color:var(--muted); opacity:0; transform:translateX(-8px); transition:opacity .3s, transform .3s; }
-.boot-line.show { opacity:1; transform:none; }
-.boot-line.ok::after  { content:' [OK]';   color:var(--acc); }
-.boot-line.warn::after{ content:' [WARN]'; color:var(--hi); }
-.boot-line span { color:var(--acc); }
-#boot-bar-wrap { margin-top:1.6rem; width:360px; height:2px; background:var(--sub); opacity:0; transition:opacity .3s; }
-#boot-bar-wrap.show { opacity:1; }
-#boot-bar { height:100%; width:0%; background:var(--acc); box-shadow:var(--glow); transition:width .05s linear; }
-#boot-pct { font-size:.62rem; color:var(--acc); margin-top:.4rem; opacity:0; letter-spacing:2px; }
-#boot-pct.show { opacity:1; }
-
-/* ══════════════════════════════════════════
-   SHELL — top bar + two-column + input
+   SHELL
 ══════════════════════════════════════════ */
 #os {
   position:fixed; inset:0; z-index:10;
   display:flex;
   flex-direction:column;
-  opacity:0; transition:opacity .8s;
   overflow:hidden;
 }
-#os.show { opacity:1; }
 
-/* ── TOP BAR ── */
 #topbar {
   flex-shrink: 0;
   height: 36px;
@@ -125,7 +96,6 @@ body:has(a:hover) #cur-r {
 }
 @keyframes scanline { from{background-position:200% 0} to{background-position:-200% 0} }
 
-/* brand — always visible */
 .tb-brand {
   font-family:'Syne', sans-serif;
   font-size:.85rem; font-weight:800;
@@ -134,14 +104,12 @@ body:has(a:hover) #cur-r {
   flex-shrink: 0;
   margin-right: 1.2rem;
 }
-/* separator */
 .tb-sep {
   color: rgba(255,107,53,.25);
   font-size:.55rem;
   flex-shrink: 0;
   margin: 0 .6rem;
 }
-/* kernel — visible on medium+ */
 #tb-kernel {
   display:flex; align-items:center; gap:.35rem;
   font-size:.52rem; letter-spacing:1px;
@@ -151,7 +119,6 @@ body:has(a:hover) #cur-r {
   overflow: hidden;
 }
 #tb-kernel .kv { color:var(--acc); font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-/* extras — only on large screens */
 #tb-extras {
   display:flex; align-items:center; gap:1.1rem;
   font-size:.51rem; letter-spacing:.9px;
@@ -162,10 +129,8 @@ body:has(a:hover) #cur-r {
 }
 #tb-extras .live { color:var(--acc); font-weight:700; }
 #tb-extras > span { flex-shrink:0; }
-/* equal spacers push kernel to true center */
 #tb-spacer { flex: 1; min-width: .3rem; }
 #tb-spacer2 { flex: 1; min-width: .3rem; }
-/* clock — always visible */
 #clock {
   color:var(--acc); letter-spacing:2px;
   font-size:.58rem; font-weight:700;
@@ -173,7 +138,6 @@ body:has(a:hover) #cur-r {
 }
 #uptime { color:var(--acc); font-weight:700; }
 
-/* hide kernel on very small screens */
 @media(max-width:480px) { #tb-kernel { display:none; } }
 
 /* ══════════════════════════════════════════
@@ -187,7 +151,6 @@ body:has(a:hover) #cur-r {
   overflow:hidden;
 }
 
-/* ── LEFT PANEL ── */
 #panel {
   display:flex; flex-direction:column;
   border-right: 1px solid var(--border);
@@ -197,9 +160,6 @@ body:has(a:hover) #cur-r {
   z-index:1;
 }
 
-
-
-/* identity card */
 .p-identity {
   padding: 1rem 1.2rem .85rem;
   border-bottom: 1px solid var(--border);
@@ -231,7 +191,6 @@ body:has(a:hover) #cur-r {
 }
 .p-tag.hot { color:var(--acc); border-color:rgba(255,107,53,.3); }
 
-/* nav sections — flex:1 so navigate + links share available space evenly */
 .p-section {
   padding: .5rem 0;
   border-bottom: 1px solid var(--border2);
@@ -269,7 +228,6 @@ body:has(a:hover) #cur-r {
 .cmd-btn.danger:hover .cb-arrow { color:var(--red); }
 .cmd-btn.danger.active { color:var(--red); border-left-color:var(--red); }
 
-/* links — same style as cmd-btn, single column */
 .link-grid { display:flex; flex-direction:column; }
 .link-btn {
   display:flex; align-items:center; gap:.5rem;
@@ -284,7 +242,6 @@ body:has(a:hover) #cur-r {
 .link-btn:hover { color:var(--text); background:rgba(255,107,53,.05); }
 .link-btn.active { color:var(--acc); background:rgba(255,107,53,.07); border-left:2px solid var(--acc); padding-left:calc(1.2rem - 2px); }
 
-/* system stats — simple info block at bottom like SID_OS */
 .p-spacer { flex:1; min-height:0; }
 .p-sysinfo {
   padding: .9rem 1.2rem 1rem;
@@ -301,7 +258,6 @@ body:has(a:hover) #cur-r {
 .p-sysinfo .si-val { color:var(--acc-dim); }
 .p-sysinfo .si-val.live { color:var(--acc); }
 
-/* ── RIGHT: TERMINAL ── */
 #terminal-wrap {
   display:flex; flex-direction:column;
   overflow:hidden;
@@ -324,7 +280,6 @@ body:has(a:hover) #cur-r {
   border-top: 1px solid var(--border2);
 }
 
-/* ── INPUT ZONE — full width, bottom ── */
 #input-zone {
   flex-shrink: 0;
   border-top: 1px solid var(--border);
@@ -382,18 +337,16 @@ body:has(a:hover) #cur-r {
 .t-line .bl { color:var(--blue); }
 .t-line .vl { color:#d580ff; }
 
-.t-line.heading { text-shadow: 0 0 14px rgba(132, 209, 243, 0.7), 0 0 30px rgba(255,179,0,0.25);} 
+.t-line.heading { text-shadow: 0 0 14px rgba(132, 209, 243, 0.7), 0 0 30px rgba(255,179,0,0.25);}
 .t-cursor { display:inline-block; width:7px; height:13px; background:var(--acc); vertical-align:middle; animation:blink 1s step-end infinite; box-shadow:var(--glow-sm); }
 @keyframes blink { 50%{opacity:0} }
 
-/* progress bars */
 .prog-row { display:flex; align-items:center; gap:.8rem; margin:.15rem 0; }
 .prog-label { font-size:.62rem; color:var(--muted); width:130px; flex-shrink:0; }
 .prog-bar { flex:1; height:4px; background:var(--sub); border:1px solid var(--border); position:relative; max-width:220px; border-radius:1px; overflow:hidden; }
 .prog-fill { height:100%; background:linear-gradient(90deg,var(--acc),var(--hi)); box-shadow:var(--glow-sm); transition:width 1.2s ease; width:0; }
 .prog-val { font-size:.58rem; color:var(--acc); width:38px; }
 
-/* project cards */
 .proj-inline {
   border-left:2px solid var(--acc);
   padding:.55rem 1rem;
@@ -407,7 +360,6 @@ body:has(a:hover) #cur-r {
 .proj-inline .p-desc { font-size:.65rem; color:var(--text); line-height:1.75; }
 .proj-inline .p-stack{ font-size:.58rem; color:var(--acc-dim); margin-top:.25rem; }
 
-/* skill pills */
 .skill-pill {
   display:inline-flex; align-items:center; gap:5px;
   background:rgba(255,107,53,.06);
@@ -416,8 +368,6 @@ body:has(a:hover) #cur-r {
   font-size:.6rem; color:var(--text); vertical-align:middle;
 }
 .skill-pill img { width:12px; height:12px; object-fit:contain; filter:brightness(1.1); }
-
-
 
 /* ══════════════════════════════════════════
    SUDO AUTH OVERLAY
@@ -482,7 +432,7 @@ body:has(a:hover) #cur-r {
 }
 
 /* ══════════════════════════════════════════
-   GLITCH / DESTROY EFFECTS
+   GLITCH / DESTROY
 ══════════════════════════════════════════ */
 @keyframes glitch-x {
   0%,100%  { clip-path:inset(0 0 95% 0); transform:translate(-4px,0); }
@@ -526,7 +476,6 @@ body:has(a:hover) #cur-r {
 .glitch-active::before { animation:glitch-x .3s infinite; background: rgba(255,0,60,.15); mix-blend-mode:screen; }
 .glitch-active::after  { animation:glitch-y .3s infinite; background: rgba(0,200,255,.12); mix-blend-mode:screen; }
 
-/* destroyed state */
 #os.destroyed #panel { display:none !important; }
 #os.destroyed #topbar { display:none !important; }
 #os.destroyed #statusbar { display:none !important; }
@@ -545,20 +494,18 @@ body:has(a:hover) #cur-r {
 #os.destroyed #body-wrap { background:#000; }
 
 /* ══════════════════════════════════════════
-   MOBILE RESPONSIVE
+   MOBILE
 ══════════════════════════════════════════ */
 @media(max-width:768px){
   body { cursor:auto; }
   #cur, #cur-r { display:none; }
 
-  /* Topbar slim on mobile — CSS media queries above handle item hiding */
   #topbar {
     height: 30px;
     padding: 0 .8rem;
   }
   .tb-brand { font-size:.72rem; letter-spacing:2px; }
 
-  /* body-wrap: stack panel on top as horizontal nav, terminal below */
   #body-wrap {
     flex: 1;
     min-height: 0;
@@ -568,7 +515,6 @@ body:has(a:hover) #cur-r {
     overflow: hidden;
   }
 
-  /* Panel becomes a compact horizontal nav strip */
   #panel {
     flex-shrink: 0;
     flex-direction: row;
@@ -582,7 +528,6 @@ body:has(a:hover) #cur-r {
   .p-spacer  { display:none; }
   .p-sysinfo { display:none; }
 
-  /* Each section becomes a horizontal wrapped row of chips */
   .p-section {
     padding: .3rem .5rem;
     border-bottom: none;
@@ -593,7 +538,6 @@ body:has(a:hover) #cur-r {
   }
   .p-section-label { display:none; }
 
-  /* Buttons become inline chips */
   .cmd-btn {
     width: auto;
     flex-shrink: 0;
@@ -610,7 +554,6 @@ body:has(a:hover) #cur-r {
     border-color: var(--acc);
   }
 
-  /* Link buttons become inline chips on mobile (same as cmd-btn) */
   .link-btn {
     width: auto;
     flex-shrink: 0;
@@ -624,10 +567,6 @@ body:has(a:hover) #cur-r {
     flex-wrap: wrap;
   }
 
-  /* Hide sysinfo */
-  .p-sysinfo { display:none; }
-
-  /* Terminal fills remaining space */
   #terminal-wrap {
     flex: 1;
     min-height: 0;
@@ -642,45 +581,32 @@ body:has(a:hover) #cur-r {
     padding:.25rem 1rem;
   }
 
-  /* Input zone */
   #input-line { padding:.5rem 1rem .6rem; gap:.4rem; }
   .input-prompt { font-size:.63rem; }
   #cmd-input { font-size:.63rem; }
 
-  /* Status bar */
   #statusbar {
     padding: 0 1rem;
     font-size:.46rem;
   }
   #statusbar span:nth-child(2) { display:none; }
 
-  /* Terminal lines */
   .t-line { font-size:.66rem; }
   .t-line.heading { font-size:.76rem; }
   .t-line.subheading { font-size:.62rem; }
 
-  /* Progress bars */
   .prog-label { width:95px; font-size:.57rem; }
   .prog-bar { max-width:120px; }
   .prog-val { font-size:.54rem; width:30px; }
 
-  /* Boot */
-  #boot { padding:2rem 1.5rem; }
-  #boot-bar-wrap { width:100%; max-width:280px; }
-  .boot-line { font-size:.65rem; }
-
-  /* Auth overlay */
   #auth-box { width:calc(100% - 2.5rem); max-width:340px; }
 }
-
-/* @media(max-width:420px) handled by topbar progressive CSS above */
 </style>
 </head>
 <body>
 
 <div id="cur"></div>
 <div id="cur-r"></div>
-<!-- <canvas id="neural" style="display:none"></canvas> -->
 
 <!-- AUTH OVERLAY -->
 <div id="auth-overlay">
@@ -696,13 +622,6 @@ body:has(a:hover) #cur-r {
     <div class="auth-attempts" id="auth-attempts"></div>
     <div class="auth-status" id="auth-status">awaiting input...</div>
   </div>
-</div>
-
-<!-- BOOT -->
-<div id="boot">
-  <div id="boot-lines"></div>
-  <div id="boot-bar-wrap"><div id="boot-bar"></div></div>
-  <div id="boot-pct">0%</div>
 </div>
 
 <!-- OS -->
@@ -725,7 +644,6 @@ body:has(a:hover) #cur-r {
     <!-- LEFT PANEL -->
     <div id="panel">
 
-      <!-- identity -->
       <div class="p-identity">
         <div class="p-ident-name">CHANDRADITHYA<br>JANASWAMI</div>
         <div class="p-ident-role">AI &amp; Systems Engineer</div>
@@ -736,7 +654,6 @@ body:has(a:hover) #cur-r {
         </div>
       </div>
 
-      <!-- commands -->
       <div class="p-section">
         <div class="p-section-label">// navigate</div>
         <button class="cmd-btn" data-cmd="whoami"><span class="cb-arrow">›</span> whoami</button>
@@ -750,7 +667,6 @@ body:has(a:hover) #cur-r {
         <button class="cmd-btn danger" data-cmd="sudo"><span class="cb-arrow">›</span> sudo</button>
       </div>
 
-      <!-- links -->
       <div class="p-section">
         <div class="p-section-label">// links</div>
         <div class="link-grid">
@@ -761,7 +677,6 @@ body:has(a:hover) #cur-r {
         </div>
       </div>
 
-      <!-- sys info -->
       <div class="p-sysinfo">
         <div class="si-row"><span class="si-key">server</span><span class="si-val">cloudflare</span></div>
         <div class="si-row"><span class="si-key">cdn</span><span class="si-val">cf CDN</span></div>
@@ -785,7 +700,6 @@ body:has(a:hover) #cur-r {
 
   </div><!-- /body-wrap -->
 
-  <!-- FULL-WIDTH STATUS / INPUT AREA -->
   <div id="input-zone">
     <div id="statusbar" style="display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:22px;font-size:.5rem;letter-spacing:1px;border-top:1px solid var(--border);color:var(--muted);">
       <span style="color:var(--acc);font-weight:700" id="sb-cmd2">READY</span>
@@ -798,9 +712,7 @@ body:has(a:hover) #cur-r {
 
 
 <script>
-/* ═══════════════════════════════════════════════
-   CURSOR
-═══════════════════════════════════════════════ */
+/* CURSOR */
 const cur = document.getElementById('cur');
 const curR = document.getElementById('cur-r');
 let mx=0,my=0,rx=0,ry=0;
@@ -826,19 +738,11 @@ document.querySelectorAll('button,a').forEach(el=>{
   });
 });
 
-/* ═══════════════════════════════════════════════
-   NEURAL CANVAS
-═══════════════════════════════════════════════ */
-
-/* ═══════════════════════════════════════════════
-   CLOCK & UPTIME
-═══════════════════════════════════════════════ */
+/* CLOCK & UPTIME */
 function updateUptime(){
   const now = new Date();
   const days = Math.floor((now - new Date('2026-01-01')) / 86400000);
   const val = `#${String(days < 0 ? 0 : days).padStart(4,'0')}`;
-  const u1 = document.getElementById('uptime');
-  if(u1) u1.textContent = val;
   const u2 = document.getElementById('sb-uptime2');
   if(u2) u2.textContent = val;
 }
@@ -851,53 +755,7 @@ function tick(){
 }
 tick(); setInterval(tick,1000);
 
-/* ═══════════════════════════════════════════════
-   BOOT SEQUENCE
-═══════════════════════════════════════════════ */
-const bootLines = [
-  {t:'BIOS v9.05 initialized — PEGASUS_OS :: CORE',cls:'ok'},
-  {t:'Loading kernel: pegasus-sys-4.1.0 ...',cls:'ok'},
-  {t:'Mounting filesystem: /experience /projects /skills',cls:'ok'},
-  {t:'Bootstrapping Kubernetes context: stack-core-cluster',cls:'ok'},
-  {t:'Rust compiler: v1.83.0 — linking systems modules',cls:'ok'},
-  {t:'Spring Boot application context: loaded (0.9s)',cls:'ok'},
-  {t:'AWS credentials: EC2 · S3 · Lambda — verified',cls:'ok'},
-  {t:'DRDO-IRDE grant modules: DFTM/034 — active',cls:'ok'},
-  {t:'Emerson Agentic AI service: session-isolated backend ONLINE',cls:'ok'},
-  {t:'RAG pipeline: LangChain + FAISS — indexed',cls:'ok'},
-  {t:'Docker daemon: running — 12 containers healthy',cls:'ok'},
-  {t:'Grafana observability stack: Prometheus scraping',cls:'ok'},
-  {t:'Open-source contributions: NGAOpenData · adenhq · Roboflow',cls:'ok'},
-  {t:'All systems nominal. Booting desktop ...',cls:''},
-];
-
-async function runBoot(){
-  const wrap=document.getElementById('boot-lines');
-  const bar=document.getElementById('boot-bar');
-  const pct=document.getElementById('boot-pct');
-  const barWrap=document.getElementById('boot-bar-wrap');
-  barWrap.classList.add('show'); pct.classList.add('show');
-  for(let i=0;i<bootLines.length;i++){
-    const div=document.createElement('div');
-    div.className='boot-line '+(bootLines[i].cls||'');
-    div.textContent=bootLines[i].t;
-    wrap.appendChild(div);
-    await sleep(20); div.classList.add('show');
-    const p=Math.round(((i+1)/bootLines.length)*100);
-    bar.style.width=p+'%'; pct.textContent=p+'%';
-    await sleep(i===bootLines.length-1?400:110);
-  }
-  await sleep(500);
-  document.getElementById('boot').classList.add('hide');
-  document.getElementById('os').classList.add('show');
-  document.getElementById('cmd-input').focus({ preventScroll: true });
-  await sleep(800);
-  runCommand('whoami',true);
-}
-
-/* ═══════════════════════════════════════════════
-   TERMINAL ENGINE
-═══════════════════════════════════════════════ */
+/* TERMINAL ENGINE */
 const term = document.getElementById('terminal');
 let busy = false;
 
@@ -975,7 +833,7 @@ const LOGOS = {
   'MariaDB':    `${DEVICON}/mariadb/mariadb-original.svg`,
 };
 
-/* ── COMMANDS ── */
+/* COMMANDS */
 const COMMANDS = {
 
   'sudo': async()=>{
@@ -1208,7 +1066,7 @@ const COMMANDS = {
     hintEl.textContent = '// type a command · tab to autocomplete · ↑↓ history';
   },
 
-  'whoami': async()=>{ 
+  'whoami': async()=>{
     term.innerHTML='';
     await addBlank();
     const box=document.createElement('div');
@@ -1541,9 +1399,7 @@ const COMMANDS = {
   },
 };
 
-/* ═══════════════════════════════════════════════
-   COMMAND RUNNER
-═══════════════════════════════════════════════ */
+/* COMMAND RUNNER */
 const ALIASES = {
   'skills':      'cat skills.txt',
   'skill':       'cat skills.txt',
@@ -1594,7 +1450,8 @@ async function runCommand(cmd, silent=false){
     await addLine(`<span style="color:var(--text)">${taunts[tauntIdx % taunts.length]}</span>`);
     tauntIdx++;
     await addBlank();
-    document.getElementById('sb-cmd').textContent = 'DESTROYED'; const sc2c=document.getElementById('sb-cmd2'); if(sc2c) sc2c.textContent='DESTROYED';
+    document.getElementById('sb-cmd').textContent = 'DESTROYED';
+    const sc2c=document.getElementById('sb-cmd2'); if(sc2c) sc2c.textContent='DESTROYED';
     busy = false;
     return;
   }
@@ -1614,10 +1471,11 @@ async function runCommand(cmd, silent=false){
     busy = false;
     return;
   }
-  
+
   const resolved = ALIASES[trimmed.toLowerCase()] ?? trimmed;
 
-  document.getElementById('sb-cmd').textContent=trimmed.toUpperCase(); const sc2=document.getElementById('sb-cmd2'); if(sc2) sc2.textContent=trimmed.toUpperCase();
+  document.getElementById('sb-cmd').textContent=trimmed.toUpperCase();
+  const sc2=document.getElementById('sb-cmd2'); if(sc2) sc2.textContent=trimmed.toUpperCase();
   document.querySelectorAll('[data-cmd]').forEach(b=>b.classList.remove('active'));
   const btn=document.querySelector(`[data-cmd="${resolved}"]`);
   if(btn) btn.classList.add('active');
@@ -1636,13 +1494,12 @@ async function runCommand(cmd, silent=false){
     await addBlank();
   }
 
-  document.getElementById('sb-cmd').textContent='READY'; const sc2b=document.getElementById('sb-cmd2'); if(sc2b) sc2b.textContent='READY';
+  document.getElementById('sb-cmd').textContent='READY';
+  const sc2b=document.getElementById('sb-cmd2'); if(sc2b) sc2b.textContent='READY';
   busy=false;
 }
 
-/* ═══════════════════════════════════════════════
-   INPUT HANDLING
-═══════════════════════════════════════════════ */
+/* INPUT HANDLING */
 const input = document.getElementById('cmd-input');
 const hintEl = document.getElementById('hint');
 const cmdList = Object.keys(COMMANDS);
@@ -1652,7 +1509,7 @@ let passwordAttempts = 0;
 window._sudoGranted = false;
 window._destroyed = false;
 
-/* ── AUTH OVERLAY LOGIC ── */
+/* AUTH OVERLAY */
 const authOverlay = document.getElementById('auth-overlay');
 const authInput   = document.getElementById('auth-input');
 const authStatus  = document.getElementById('auth-status');
@@ -1763,9 +1620,11 @@ input.addEventListener('input',()=>{
 
 term.addEventListener('click',()=>input.focus());
 
-
-/* KICK OFF */
-runBoot();
+/* INIT — skip boot, go straight to whoami */
+(async()=>{
+  input.focus({ preventScroll: true });
+  await runCommand('whoami', true);
+})();
 </script>
 </body>
 </html>
