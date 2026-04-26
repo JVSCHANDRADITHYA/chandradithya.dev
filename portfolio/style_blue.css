@@ -27,6 +27,74 @@
       --pad: clamp(24px, 5vw, 80px);
     }
 
+    /* keep your section styling */
+.futuristic-gallery {
+  margin-top: 60px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+/* wrapper INSIDE section-inner */
+.gallery-wrap {
+  overflow: hidden;
+  padding: 24px 0;
+
+  /* 🔥 fade aligned to container edges */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+/* track */
+.gallery-track {
+  display: flex;
+  gap: 22px;
+  width: max-content;
+  animation: gallery-scroll 30s linear infinite;
+}
+
+/* images */
+.gallery-track img {
+  height: 180px;
+  border-radius: 10px;
+
+  filter: grayscale(100%) contrast(105%) brightness(0.9);
+  opacity: 0.75;
+
+  transition: all 0.35s ease;
+}
+
+.gallery-track img:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.04);
+}
+
+/* seamless loop */
+@keyframes gallery-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 11px));
+  }
+}
+
+/* pause */
+.futuristic-gallery:hover .gallery-track {
+  animation-play-state: paused;
+}
     html { scroll-behavior: smooth; }
 
     body {
