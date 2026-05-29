@@ -1,40 +1,148 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta property="og:title" content="Ring Studio"/>
-  <meta property="og:description" content="Interactive 3D Jewelry Customization Experience."/>
-  <meta property="og:image" content="profile.png"/>
-  <meta property="og:url" content="http://13.203.68.186:5175/"/>
-  <meta property="og:type" content="website"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta property="og:title" content="Ring Studio" />
+  <meta property="og:description" content="Interactive 3D Jewelry Configurator" />
+  <meta property="og:type" content="website" />
 
   <title>Ring Studio</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      margin: 0;
+      background: #05070a;
+      color: #00e0ff;
+      font-family: 'Orbitron', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .boot-container {
+      text-align: center;
+      width: 320px;
+    }
+
+    .boot-image {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #00e0ff;
+      box-shadow: 0 0 25px rgba(0, 224, 255, 0.6);
+      margin-bottom: 30px;
+      animation: fadeIn 1s ease-in;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 18px;
+      background: rgba(0, 224, 255, 0.1);
+      border: 1px solid #00e0ff;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 25px;
+    }
+
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0;
+      background: #00e0ff;
+      animation: progress 3s ease-in-out forwards;
+    }
+
+    @keyframes progress {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    #boot-sequence {
+      font-size: 13px;
+      letter-spacing: 1px;
+      min-height: 60px;
+      margin-bottom: 20px;
+    }
+
+    .built-by {
+      font-size: 11px;
+      opacity: 0.6;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
 </head>
 <body>
 
   <div class="boot-container">
-    <img src="profile.png" class="boot-image" />
+    <img
+      src="https://cdn-icons-png.flaticon.com/512/3050/3050153.png"
+      class="boot-image"
+      alt="Ring Studio"
+    />
 
     <div class="progress-bar"></div>
 
-    <div id="boot-sequence">
-      Initializing Ring Studio...
-    </div>
+    <div id="boot-sequence"></div>
 
     <div class="built-by">
-      Ring Studio • 3D Jewelry Configurator
+      RING STUDIO • 3D JEWELRY CONFIGURATOR
     </div>
   </div>
 
   <script>
-    setTimeout(() => {
-      window.location.href = "http://13.203.68.186:5175/";
-    }, 5000);
-  </script>
+    const bootText = [
+      "INITIALIZING RING STUDIO...",
+      "LOADING 3D ASSETS...",
+      "LOADING MATERIAL LIBRARY...",
+      "PREPARING CONFIGURATOR...",
+      "READY."
+    ];
 
-  <script src="script.js"></script>
+    const bootSequence = document.getElementById("boot-sequence");
+
+    let currentLine = 0;
+    let charIndex = 0;
+
+    function typeLine() {
+      if (currentLine < bootText.length) {
+        if (charIndex < bootText[currentLine].length) {
+          bootSequence.innerHTML += bootText[currentLine][charIndex];
+          charIndex++;
+          setTimeout(typeLine, 25);
+        } else {
+          bootSequence.innerHTML += "<br>";
+          currentLine++;
+          charIndex = 0;
+          setTimeout(typeLine, 120);
+        }
+      }
+    }
+
+    typeLine();
+
+    document
+      .querySelector(".progress-bar")
+      .addEventListener("animationend", () => {
+        setTimeout(() => {
+          window.location.href = "http://13.203.68.186:5175/";
+        }, 1000);
+      });
+  </script>
 
 </body>
 </html>
