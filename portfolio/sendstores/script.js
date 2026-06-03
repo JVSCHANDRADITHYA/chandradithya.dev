@@ -27,6 +27,6 @@ typeLine();
 // Wait 1 second AFTER progress animation completes
 progressBar.addEventListener("animationend", () => {
   setTimeout(() => {
-    window.location.href = "http://13-204-92-56.sslip.io:3000/";
+    window.location.href = "http://13-203-68-186.sslip.io:3000/";
   }, 1000);
 });
