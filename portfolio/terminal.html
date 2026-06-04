@@ -654,7 +654,7 @@ const COMMANDS={
 
 'ls --experience':async()=>{
   await addBlank();await addLine('EXPERIENCE','heading');addRule();await addBlank();
-  await addLine('<span class="bl">[ 01 ]</span>  SDE (Agentic AI) Intern','sub');
+  await addLine('<span class="bl">[ 01 ]</span>  SDE (Agentic AI)','sub');
   const em=document.createElement('div');em.className='exp-block';
   em.innerHTML=`
     <div class="eb-co"><b>Emerson</b></div>
@@ -665,7 +665,7 @@ const COMMANDS={
       Built a <b>RAG service</b> (LangChain + FAISS) with optimised chunking, improving answer accuracy for internal knowledge queries.
     </div>`;
   term.appendChild(em);scroll();await sleep(110);await addBlank();
-  await addLine('<span class="bl">[ 02 ]</span>  Research Intern (Part-Time)','sub');
+  await addLine('<span class="bl">[ 02 ]</span>  Research Contributor (Part-Time)','sub');
   const dr=document.createElement('div');dr.className='exp-block';
   dr.innerHTML=`
     <div class="eb-co"><b>DRDO-IRDE</b> &nbsp;<span style="color:var(--sub);font-size:.56rem;">Sanctioned Grant No. DFTM/034 (via VNR VJIET)</span></div>
