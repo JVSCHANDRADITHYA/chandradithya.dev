@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SendStores — Project Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #060810;
+    --bg2: #0b0e18;
+    --bg3: #111520;
+    --blue: #1a2240;
+    --cyan: #3de8c8;
+    --cyan2: #7ef5e0;
+    --cyan-dim: rgba(61,232,200,0.12);
+    --text: #dce8f0;
+    --muted: #4a5a6a;
+    --border: rgba(61,232,200,0.1);
+    --border2: rgba(61,232,200,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* GRID TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(61,232,200,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(61,232,200,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  * { position: relative; z-index: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 56px;
+    background: linear-gradient(to bottom, rgba(6,8,16,0.98), transparent);
+    border-bottom: 1px solid rgba(61,232,200,0.05);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: 0.08em;
+    color: var(--cyan);
+    text-transform: uppercase;
+  }
+
+  .nav-pill {
+    background: var(--cyan-dim);
+    border: 1px solid var(--border);
+    padding: 6px 16px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cyan);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--cyan); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 56px 80px;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: 20%;
+    right: -10%;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(61,232,200,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-glow2 {
+    position: absolute;
+    bottom: 10%;
+    left: -5%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(61,232,200,0.03) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* K8s node diagram */
+  .hero-diagram {
+    position: absolute;
+    top: 50%;
+    right: 6%;
+    transform: translateY(-50%);
+    width: 360px;
+    height: 360px;
+    opacity: 0.18;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .eyebrow-line {
+    width: 32px;
+    height: 1px;
+    background: var(--cyan);
+    opacity: 0.6;
+  }
+
+  .eyebrow-text {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    opacity: 0.8;
+  }
+
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(68px, 9.5vw, 136px);
+    font-weight: 800;
+    line-height: 0.9;
+    color: var(--text);
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+
+  .hero-title .accent {
+    color: var(--cyan);
+    display: block;
+  }
+
+  .hero-subtitle {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(16px, 2vw, 24px);
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    margin-bottom: 48px;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 0;
+    margin-bottom: 56px;
+    border: 1px solid var(--border);
+    background: rgba(6,8,16,0.7);
+  }
+
+  .hero-stat {
+    padding: 28px 36px;
+    border-right: 1px solid var(--border);
+    flex: 1;
+  }
+
+  .hero-stat:last-child { border-right: none; }
+
+  .stat-big {
+    font-family: 'Syne', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--cyan);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-desc {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .hero-cta-row {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    background: var(--cyan);
+    color: var(--bg);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s;
+  }
+
+  .btn-primary:hover { background: var(--cyan2); }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border: 1px solid var(--border);
+    color: var(--cyan);
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-ghost:hover { border-color: var(--cyan); background: var(--cyan-dim); }
+
+  /* SECTION */
+  section { padding: 100px 56px; }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--cyan);
+    opacity: 0.6;
+  }
+
+  .section-dash {
+    width: 20px;
+    height: 1px;
+    background: var(--cyan);
+    opacity: 0.3;
+  }
+
+  .section-name {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 56px;
+  }
+
+  .section-title .hi { color: var(--cyan); }
+
+  /* DIVIDER */
+  .section-divider {
+    height: 1px;
+    background: var(--border2);
+    margin: 0 56px;
+  }
+
+  /* OVERVIEW */
+  .overview-split {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .overview-body p {
+    font-size: 16px;
+    line-height: 1.85;
+    color: var(--text);
+    opacity: 0.75;
+  }
+
+  .overview-body p + p { margin-top: 18px; }
+
+  .live-card {
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .live-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cyan);
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--cyan);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  .live-url {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--cyan2);
+    line-height: 1.6;
+    word-break: break-all;
+  }
+
+  .live-url a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .live-url a:hover { text-decoration: underline; }
+
+  /* ARCHITECTURE */
+  .arch-layers {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .arch-row {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    background: var(--border2);
+    gap: 1px;
+  }
+
+  .arch-label {
+    background: var(--bg2);
+    padding: 32px 36px;
+    border-right: 1px solid var(--border);
+  }
+
+  .arch-layer-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--cyan);
+    opacity: 0.5;
+    letter-spacing: 0.15em;
+    margin-bottom: 10px;
+  }
+
+  .arch-layer-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .arch-content {
+    background: var(--bg);
+    padding: 32px 40px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text);
+    opacity: 0.7;
+  }
+
+  /* FEATURES */
+  .features-bento {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border2);
+  }
+
+  .feature-tile {
+    background: var(--bg);
+    padding: 40px 32px;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature-tile::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .feature-tile:hover { background: var(--bg2); }
+  .feature-tile:hover::after { opacity: 0.4; }
+
+  .feature-icon {
+    font-size: 22px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+  }
+
+  .feature-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .feature-body {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: 0.55;
+  }
+
+  /* ENGINEERING CHALLENGE */
+  .challenge-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--border2);
+  }
+
+  .challenge-block {
+    background: var(--bg);
+    padding: 48px 44px;
+  }
+
+  .challenge-tag {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .challenge-tag::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 1px;
+    background: var(--cyan);
+    opacity: 0.5;
+  }
+
+  .challenge-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  .challenge-text {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--text);
+    opacity: 0.7;
+  }
+
+  .solution-step {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border2);
+  }
+
+  .solution-step:last-child { border-bottom: none; }
+
+  .sol-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--cyan);
+    padding-top: 2px;
+    flex-shrink: 0;
+    width: 24px;
+  }
+
+  .sol-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: 0.75;
+  }
+
+  .sol-text strong { color: var(--cyan2); font-weight: 500; }
+
+  /* STACK TABLE */
+  .stack-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .stack-table thead {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stack-table th {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0 0 18px;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  .stack-table tbody tr {
+    border-bottom: 1px solid var(--border2);
+    transition: background 0.2s;
+  }
+
+  .stack-table tbody tr:hover { background: rgba(61,232,200,0.02); }
+
+  .stack-table td {
+    padding: 20px 0;
+    font-size: 14px;
+    color: var(--text);
+    opacity: 0.7;
+    vertical-align: top;
+  }
+
+  .stack-table td:first-child {
+    opacity: 0.45;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    width: 160px;
+  }
+
+  .stack-table td:nth-child(2) {
+    font-family: 'DM Mono', monospace;
+    color: var(--cyan);
+    font-size: 13px;
+    opacity: 1;
+    width: 260px;
+  }
+
+  /* ROADMAP */
+  .roadmap-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .roadmap-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    border-bottom: 1px solid var(--border2);
+    padding: 28px 0;
+    align-items: center;
+    gap: 40px;
+    transition: background 0.2s;
+  }
+
+  .roadmap-row:hover { background: rgba(61,232,200,0.02); }
+
+  .roadmap-index {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--cyan);
+    opacity: 0.4;
+    letter-spacing: 0.1em;
+  }
+
+  .roadmap-desc {
+    font-size: 15px;
+    color: var(--text);
+    opacity: 0.7;
+    line-height: 1.5;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 56px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .footer-logo span { color: var(--cyan); }
+
+  .footer-tagline {
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+    line-height: 2;
+  }
+
+  /* animations */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up:nth-child(1) { animation-delay: 0.1s; }
+  .fade-up:nth-child(2) { animation-delay: 0.22s; }
+  .fade-up:nth-child(3) { animation-delay: 0.34s; }
+  .fade-up:nth-child(4) { animation-delay: 0.46s; }
+  .fade-up:nth-child(5) { animation-delay: 0.58s; }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 48px;
+  }
+
+  .tag {
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    transition: all 0.3s;
+  }
+
+  .tag:hover { border-color: var(--cyan); color: var(--cyan); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SendStores</div>
+  <div class="nav-pill">v1.0</div>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#challenge">Engineering</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <!-- K8s node diagram -->
+  <div class="hero-diagram">
+    <svg viewBox="0 0 360 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- central node -->
+      <circle cx="180" cy="180" r="30" stroke="#3de8c8" stroke-width="1.5"/>
+      <circle cx="180" cy="180" r="8" fill="#3de8c8" opacity="0.3"/>
+      <!-- outer nodes -->
+      <circle cx="180" cy="60" r="20" stroke="#3de8c8" stroke-width="0.8"/>
+      <circle cx="280" cy="240" r="20" stroke="#3de8c8" stroke-width="0.8"/>
+      <circle cx="80" cy="240" r="20" stroke="#3de8c8" stroke-width="0.8"/>
+      <circle cx="50" cy="110" r="14" stroke="#3de8c8" stroke-width="0.6" stroke-dasharray="3 4"/>
+      <circle cx="310" cy="110" r="14" stroke="#3de8c8" stroke-width="0.6" stroke-dasharray="3 4"/>
+      <circle cx="180" cy="320" r="14" stroke="#3de8c8" stroke-width="0.6" stroke-dasharray="3 4"/>
+      <!-- connections -->
+      <line x1="180" y1="150" x2="180" y2="80" stroke="#3de8c8" stroke-width="0.7" opacity="0.5"/>
+      <line x1="205" y1="197" x2="262" y2="227" stroke="#3de8c8" stroke-width="0.7" opacity="0.5"/>
+      <line x1="155" y1="197" x2="98" y2="227" stroke="#3de8c8" stroke-width="0.7" opacity="0.5"/>
+      <line x1="160" y1="168" x2="64" y2="119" stroke="#3de8c8" stroke-width="0.5" opacity="0.3"/>
+      <line x1="200" y1="168" x2="296" y2="119" stroke="#3de8c8" stroke-width="0.5" opacity="0.3"/>
+      <line x1="180" y1="210" x2="180" y2="306" stroke="#3de8c8" stroke-width="0.5" opacity="0.3"/>
+      <!-- orbit ring -->
+      <circle cx="180" cy="180" r="110" stroke="#3de8c8" stroke-width="0.4" stroke-dasharray="6 10"/>
+    </svg>
+  </div>
+
+  <div class="fade-up">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-line"></div>
+      <div class="eyebrow-text">Kubernetes-Native · Multi-Store Control Plane</div>
+    </div>
+  </div>
+
+  <div class="fade-up">
+    <h1 class="hero-title">Send<span class="accent">Stores</span></h1>
+  </div>
+
+  <div class="fade-up">
+    <p class="hero-subtitle">On-demand WooCommerce provisioning via Helm · Namespace-isolated tenancy</p>
+  </div>
+
+  <div class="fade-up">
+    <div class="tag-row">
+      <span class="tag">Kubernetes</span>
+      <span class="tag">Helm</span>
+      <span class="tag">WooCommerce</span>
+      <span class="tag">Node.js</span>
+      <span class="tag">Redis</span>
+      <span class="tag">MySQL</span>
+      <span class="tag">Docker</span>
+      <span class="tag">Nginx Ingress</span>
+      <span class="tag">React</span>
+      <span class="tag">AWS EC2</span>
+    </div>
+  </div>
+
+  <div class="fade-up">
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="stat-big">100+</div>
+        <div class="stat-desc">Stores Provisioned</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-big">3</div>
+        <div class="stat-desc">Layer Architecture</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-big">Zero</div>
+        <div class="stat-desc">Shared State</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-big">1-Click</div>
+        <div class="stat-desc">Deploy & Teardown</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fade-up">
+    <div class="hero-cta-row">
+      <a class="btn-primary" href="http://13-203-68-186.sslip.io:3000/" target="_blank">Live Dashboard →</a>
+      <a class="btn-ghost" href="https://github.com/JVSCHANDRADITHYA/SendStores" target="_blank">GitHub Repository</a>
+      <a class="btn-ghost" href="https://chandradithya.dev/sendstores" target="_blank">Portfolio</a>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="section-label">
+    <span class="section-num">01</span>
+    <div class="section-dash"></div>
+    <span class="section-name">Overview</span>
+  </div>
+  <h2 class="section-title">A control plane<br>that <span class="hi">provisions</span> at scale</h2>
+
+  <div class="overview-split">
+    <div class="overview-body">
+      <p>SendStores implements a Kubernetes-native control plane to provision, manage, and tear down isolated WordPress + WooCommerce instances on demand. Unlike standard multi-site installations, each store runs as a distinct set of workloads in its own namespace — with a dedicated database, persistent storage, and networking rules.</p>
+      <p>A Node.js backend orchestrates Helm charts to create ephemeral or permanent store environments without manual intervention, targeting a production-aligned SaaS provisioning pattern. Zero shared runtime state between tenants means each store is hermetically isolated.</p>
+    </div>
+    <div class="live-card">
+      <div class="live-indicator">
+        <div class="live-dot"></div>
+        Live Dashboard
+      </div>
+      <div class="live-url">
+        <a href="http://13-203-68-186.sslip.io:3000/" target="_blank">http://13-203-68-186.sslip.io:3000/</a>
+      </div>
+      <div style="height:1px;background:var(--border);"></div>
+      <div style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);">Portfolio</div>
+      <div class="live-url">
+        <a href="https://chandradithya.dev/sendstores" target="_blank">chandradithya.dev/sendstores</a>
+      </div>
+      <div style="height:1px;background:var(--border);"></div>
+      <div style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);">Repository</div>
+      <div class="live-url">
+        <a href="https://github.com/JVSCHANDRADITHYA/SendStores" target="_blank">github.com/JVSCHANDRADITHYA/SendStores</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <div class="section-label">
+    <span class="section-num">02</span>
+    <div class="section-dash"></div>
+    <span class="section-name">Architecture</span>
+  </div>
+  <h2 class="section-title">Three-layer <span class="hi">design</span></h2>
+
+  <div class="arch-layers">
+    <div class="arch-row">
+      <div class="arch-label">
+        <div class="arch-layer-num">LAYER 01</div>
+        <div class="arch-layer-name">Control Plane</div>
+      </div>
+      <div class="arch-content">
+        Node.js backend accepts POST /stores requests, generates a unique Store ID mapped to a K8s Namespace, and wraps the Helm CLI to execute installs and uninstalls. Redis acts as the single source of truth for provisioning intent and state — no direct K8s API calls from the frontend.
+      </div>
+    </div>
+    <div class="arch-row">
+      <div class="arch-label">
+        <div class="arch-layer-num">LAYER 02</div>
+        <div class="arch-layer-name">Data Plane (K8s)</div>
+      </div>
+      <div class="arch-content">
+        Per store: MySQL StatefulSet with dedicated PVC, WordPress Deployment with a custom wp-cli image, ClusterIP Service, and Ingress rules exposing unique subdomains. Zero shared runtime state between tenants — secrets, volumes, and networking are fully separated at the namespace level.
+      </div>
+    </div>
+    <div class="arch-row">
+      <div class="arch-label">
+        <div class="arch-layer-num">LAYER 03</div>
+        <div class="arch-layer-name">Observability</div>
+      </div>
+      <div class="arch-content">
+        React dashboard polls the backend API — never touches the K8s API directly — displaying real-time store status, provisioning progress bars, per-store URLs, and platform health percentage. Built with Recharts for live provisioning graphs.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-label">
+    <span class="section-num">03</span>
+    <div class="section-dash"></div>
+    <span class="section-name">Key Features</span>
+  </div>
+  <h2 class="section-title">Production-grade<br><span class="hi">isolation</span> by default</h2>
+
+  <div class="features-bento">
+    <div class="feature-tile">
+      <div class="feature-icon">⬡</div>
+      <div class="feature-title">Namespace Isolation</div>
+      <div class="feature-body">Hard K8s namespace isolation per store — secrets, volumes, and networking fully separated. No tenant can touch another's data.</div>
+    </div>
+    <div class="feature-tile">
+      <div class="feature-icon">◈</div>
+      <div class="feature-title">Helm as the Contract</div>
+      <div class="feature-body">Single Helm chart for all deployments. Environment differences handled via values.yaml only — no duplicate manifests to maintain.</div>
+    </div>
+    <div class="feature-tile">
+      <div class="feature-icon">⟳</div>
+      <div class="feature-title">Automated Lifecycle</div>
+      <div class="feature-body">Node.js backend handles creation (helm install), state tracking via Redis, and full destruction (helm uninstall) — no manual steps.</div>
+    </div>
+    <div class="feature-tile">
+      <div class="feature-icon">⊞</div>
+      <div class="feature-title">Persistent Storage</div>
+      <div class="feature-body">Dynamic PVCs provisioned per store for both MySQL data and WordPress content. Data survives pod restarts.</div>
+    </div>
+    <div class="feature-tile">
+      <div class="feature-icon">⇌</div>
+      <div class="feature-title">Ingress-Ready</div>
+      <div class="feature-body">Auto-configures Nginx Ingress rules exposing each store on a unique subdomain the moment it's created.</div>
+    </div>
+    <div class="feature-tile">
+      <div class="feature-icon">✓</div>
+      <div class="feature-title">Deterministic Bootstrap</div>
+      <div class="feature-body">Custom WordPress image with wp-cli; post-install exec solves the empty-install race condition for guaranteed first-visit readiness.</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ENGINEERING CHALLENGE -->
+<section id="challenge">
+  <div class="section-label">
+    <span class="section-num">04</span>
+    <div class="section-dash"></div>
+    <span class="section-name">Engineering Challenge</span>
+  </div>
+  <h2 class="section-title">The <span class="hi">Bootstrap</span> Problem</h2>
+
+  <div class="challenge-grid">
+    <div class="challenge-block">
+      <div class="challenge-tag">The Problem</div>
+      <div class="challenge-title">Race conditions on first boot</div>
+      <div class="challenge-text">
+        Initial provisioning resulted in WordPress instances showing the Language Selection and Install screens on first visit. Helm Hooks using wp-cli Jobs failed due to race conditions and filesystem mismatches between the Job container and the main WordPress container — the Init Container approach couldn't guarantee the same filesystem and PHP environment as the live site.
+      </div>
+    </div>
+    <div class="challenge-block">
+      <div class="challenge-tag">The Solution</div>
+      <div class="challenge-title">Two-step deterministic bootstrap</div>
+      <div class="solution-step">
+        <div class="sol-num">01</div>
+        <div class="sol-text"><strong>Custom Image:</strong> Built a WordPress image that includes the wp-cli binary directly — no separate Job container with mismatched filesystems.</div>
+      </div>
+      <div class="solution-step">
+        <div class="sol-num">02</div>
+        <div class="sol-text"><strong>Post-Install Exec:</strong> Backend triggers kubectl exec after the Pod reaches Running state — wp-cli operates on the exact same filesystem and PHP environment as the live site, guaranteeing a fully installed WooCommerce storefront on every first visit.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- STACK -->
+<section id="stack">
+  <div class="section-label">
+    <span class="section-num">05</span>
+    <div class="section-dash"></div>
+    <span class="section-name">Technology Stack</span>
+  </div>
+  <h2 class="section-title">Every layer<br><span class="hi">chosen with intent</span></h2>
+
+  <table class="stack-table">
+    <thead>
+      <tr>
+        <th>Layer</th>
+        <th>Technology</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Control Plane</td>
+        <td>Node.js + Redis</td>
+        <td>API server, Helm orchestration, state store</td>
+      </tr>
+      <tr>
+        <td>Data Plane</td>
+        <td>Kubernetes + Helm</td>
+        <td>Store lifecycle — namespaces, PVCs, Ingress</td>
+      </tr>
+      <tr>
+        <td>Database</td>
+        <td>MySQL StatefulSet</td>
+        <td>Per-store isolated database with PVC</td>
+      </tr>
+      <tr>
+        <td>App Runtime</td>
+        <td>WordPress + wp-cli</td>
+        <td>Custom image; post-install bootstrap via exec</td>
+      </tr>
+      <tr>
+        <td>Networking</td>
+        <td>Nginx Ingress Controller</td>
+        <td>Subdomain routing per store</td>
+      </tr>
+      <tr>
+        <td>Frontend</td>
+        <td>React + Recharts</td>
+        <td>Dashboard polling backend REST API</td>
+      </tr>
+      <tr>
+        <td>Infra</td>
+        <td>AWS EC2 + Docker Compose</td>
+        <td>Production deployment, live demo</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="section-label">
+    <span class="section-num">06</span>
+    <div class="section-dash"></div>
+    <span class="section-name">Future Roadmap</span>
+  </div>
+  <h2 class="section-title">The path<br><span class="hi">forward</span></h2>
+
+  <div class="roadmap-items">
+    <div class="roadmap-row">
+      <div class="roadmap-index">ROAD.01</div>
+      <div class="roadmap-desc">Production Hardening — replace kubectl exec bootstrapping with a Kubernetes Operator or Init Container pattern for hermetic, reproducible installs</div>
+    </div>
+    <div class="roadmap-row">
+      <div class="roadmap-index">ROAD.02</div>
+      <div class="roadmap-desc">GenAI Management Agent — LLM agent capable of summarizing store status and performing management actions via natural language prompts</div>
+    </div>
+    <div class="roadmap-row">
+      <div class="roadmap-index">ROAD.03</div>
+      <div class="roadmap-desc">Helm Chart Publication — release finalized, bootstrap-ready Helm chart to a public repository for community use</div>
+    </div>
+    <div class="roadmap-row">
+      <div class="roadmap-index">ROAD.04</div>
+      <div class="roadmap-desc">MariaDB Branch — optimized per-store database performance using MariaDB (in progress — see mariadb branch)</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <div class="footer-logo">Send<span>Stores</span></div>
+    <div class="footer-tagline">Kubernetes-Native Multi-Store Control Plane</div>
+  </div>
+  <div class="footer-right">
+    Chandradithya Janaswami<br>
+    github.com/JVSCHANDRADITHYA/SendStores<br>
+    chandradithya.dev/sendstores
+  </div>
+</footer>
+
+</body>
+</html>
