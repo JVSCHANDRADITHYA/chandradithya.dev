@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ring Studio — Project Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0d0a;
+    --bg2: #181410;
+    --bg3: #221e18;
+    --cream: #f0e8d8;
+    --cream2: #d4c8b0;
+    --gold: #c9a84c;
+    --gold2: #e8c87a;
+    --text: #e8dfc8;
+    --muted: #7a7060;
+    --border: rgba(201,168,76,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 56px;
+    background: linear-gradient(to bottom, rgba(15,13,10,0.95), transparent);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--cream2);
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+  }
+
+  .nav-links a:hover { opacity: 1; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 56px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201,168,76,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 50% at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 60%);
+  }
+
+  .hero-ring-visual {
+    position: absolute;
+    top: 50%;
+    right: 8%;
+    transform: translateY(-50%);
+    width: 380px;
+    height: 380px;
+    opacity: 0.15;
+  }
+
+  .hero-ring-visual svg { width: 100%; height: 100%; }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    opacity: 0.9;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(72px, 10vw, 140px);
+    font-weight: 900;
+    line-height: 0.92;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+    margin-bottom: 36px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-descriptor {
+    max-width: 520px;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--cream2);
+    opacity: 0.8;
+    margin-bottom: 60px;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 32px;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .meta-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .meta-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--gold);
+  }
+
+  /* DIVIDER */
+  .section-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 56px;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 100px 56px;
+  }
+
+  .section-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 48px;
+  }
+
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  /* OVERVIEW */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .overview-body {
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--cream2);
+    opacity: 0.85;
+  }
+
+  .overview-body p + p { margin-top: 20px; }
+
+  .overview-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .link-pill {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    border: 1px solid var(--border);
+    background: rgba(201,168,76,0.03);
+    transition: all 0.3s;
+    text-decoration: none;
+  }
+
+  .link-pill:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.07);
+  }
+
+  .link-icon {
+    font-size: 18px;
+    opacity: 0.6;
+  }
+
+  .link-content { flex: 1; }
+  .link-type { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .link-url { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--gold); }
+
+  /* STATS ROW */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    margin-bottom: 80px;
+  }
+
+  .stat-cell {
+    background: var(--bg);
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ARCHITECTURE */
+  .arch-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .arch-layer {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 0;
+    background: var(--border);
+  }
+
+  .arch-layer-label {
+    background: var(--bg2);
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--border);
+  }
+
+  .layer-tag {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .layer-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--cream);
+    line-height: 1.2;
+  }
+
+  .arch-layer-body {
+    background: var(--bg);
+    padding: 36px 40px;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--cream2);
+    opacity: 0.8;
+  }
+
+  /* FEATURES */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+  }
+
+  .feature-card {
+    background: var(--bg);
+    padding: 44px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .feature-card:hover { background: var(--bg2); }
+  .feature-card:hover::before { opacity: 1; }
+
+  .feature-index {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    opacity: 0.6;
+  }
+
+  .feature-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--cream);
+    line-height: 1.2;
+  }
+
+  .feature-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--cream2);
+    opacity: 0.7;
+  }
+
+  /* TECH STACK */
+  .stack-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .stack-table thead tr {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stack-table th {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0 0 20px;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  .stack-table tbody tr {
+    border-bottom: 1px solid rgba(201,168,76,0.06);
+    transition: background 0.2s;
+  }
+
+  .stack-table tbody tr:hover {
+    background: rgba(201,168,76,0.03);
+  }
+
+  .stack-table td {
+    padding: 22px 0;
+    font-size: 14px;
+    color: var(--cream2);
+    vertical-align: top;
+  }
+
+  .stack-table td:first-child {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    width: 180px;
+  }
+
+  .stack-table td:nth-child(2) {
+    font-family: 'DM Mono', monospace;
+    color: var(--gold);
+    font-size: 13px;
+    width: 280px;
+  }
+
+  /* HOW IT WORKS */
+  .steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .step-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    border-bottom: 1px solid var(--border);
+    padding: 36px 0;
+    align-items: center;
+  }
+
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--gold);
+    opacity: 0.3;
+    line-height: 1;
+  }
+
+  .step-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--cream2);
+  }
+
+  .step-text strong {
+    color: var(--cream);
+    font-weight: 500;
+  }
+
+  /* ROADMAP */
+  .roadmap-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: var(--border);
+  }
+
+  .roadmap-item {
+    background: var(--bg);
+    padding: 36px 40px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    transition: background 0.3s;
+  }
+
+  .roadmap-item:hover { background: var(--bg2); }
+
+  .roadmap-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    margin-top: 8px;
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+
+  .roadmap-text {
+    font-size: 15px;
+    color: var(--cream2);
+    line-height: 1.5;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 60px 56px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .footer-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  /* GETTING STARTED */
+  .getting-started-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+
+  .code-block-wrapper {
+    grid-column: 1 / -1;
+  }
+
+  .step-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .step-card-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+  }
+
+  .step-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--cream);
+  }
+
+  .code-block {
+    background: #0a0906;
+    border: 1px solid var(--border);
+    padding: 28px 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--gold2);
+    line-height: 1.8;
+    overflow-x: auto;
+  }
+
+  .code-comment { color: var(--muted); }
+  .code-cmd { color: var(--cream2); }
+
+  /* SCROLL HINT */
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    right: 56px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .scroll-arrow {
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+  }
+
+  /* ANIMATIONS */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeIn 0.9s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in:nth-child(1) { animation-delay: 0.1s; }
+  .fade-in:nth-child(2) { animation-delay: 0.25s; }
+  .fade-in:nth-child(3) { animation-delay: 0.4s; }
+  .fade-in:nth-child(4) { animation-delay: 0.55s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Ring Studio</div>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+
+  <!-- Decorative ring SVG -->
+  <div class="hero-ring-visual">
+    <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="200" cy="200" r="160" stroke="#c9a84c" stroke-width="0.5"/>
+      <circle cx="200" cy="200" r="120" stroke="#c9a84c" stroke-width="1"/>
+      <circle cx="200" cy="200" r="80" stroke="#c9a84c" stroke-width="0.5"/>
+      <ellipse cx="200" cy="200" rx="160" ry="60" stroke="#c9a84c" stroke-width="0.5" stroke-dasharray="4 6"/>
+      <ellipse cx="200" cy="200" rx="120" ry="45" stroke="#c9a84c" stroke-width="0.8"/>
+      <!-- gem hint -->
+      <polygon points="200,130 220,160 200,155 180,160" fill="#c9a84c" opacity="0.3"/>
+      <polygon points="200,130 220,160 200,190 180,160" fill="#c9a84c" opacity="0.15"/>
+    </svg>
+  </div>
+
+  <div class="fade-in">
+    <div class="hero-eyebrow">Project Brief · 3D Jewellery Configurator</div>
+  </div>
+  <div class="fade-in">
+    <h1 class="hero-title">Ring<br><em>Studio</em></h1>
+  </div>
+  <div class="fade-in">
+    <p class="hero-descriptor">Photorealistic 3D ring customisation powered by Three.js and Headless WooCommerce. Shoppers configure metals, stones, and carats — while live pricing and inventory update in real time.</p>
+  </div>
+  <div class="fade-in">
+    <div class="hero-meta">
+      <div class="meta-item">
+        <span class="meta-label">3D Engine</span>
+        <span class="meta-value">Three.js / R3F</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Commerce</span>
+        <span class="meta-value">Headless WooCommerce</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Build Tool</span>
+        <span class="meta-value">Vite</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Hosting</span>
+        <span class="meta-value">Vercel + Docker</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-arrow">↓</div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="section-number">01 — Overview</div>
+  <h2 class="section-title">See exactly what<br>you're <em>buying</em></h2>
+  <div class="overview-grid">
+    <div class="overview-body">
+      <p>Ring Studio replaces static product photography with a live, interactive 3D configurator. Customers rotate a photorealistic ring model, swap metals, and change gem types — all inside a WebGL canvas rendered directly in the browser.</p>
+      <p>Metal swaps happen client-side with zero network overhead. Stone changes trigger a single debounced REST call to WooCommerce, returning the exact price and stock status for that configuration — no page reloads, no laggy spinners.</p>
+      <p>The headless architecture decouples the React storefront from WordPress rendering entirely, while preserving WooCommerce's mature order, payment, and fulfilment workflows under the hood.</p>
+    </div>
+    <div class="overview-links">
+      <a class="link-pill" href="https://chandradithya.dev/ringstudio/" target="_blank">
+        <span class="link-icon">⬡</span>
+        <div class="link-content">
+          <div class="link-type">Live Demo</div>
+          <div class="link-url">chandradithya.dev/ringstudio/</div>
+        </div>
+        <span style="color:var(--muted);font-size:12px;">→</span>
+      </a>
+      <a class="link-pill" href="https://github.com/JVSCHANDRADITHYA/ring-studio" target="_blank">
+        <span class="link-icon">⌥</span>
+        <div class="link-content">
+          <div class="link-type">Repository</div>
+          <div class="link-url">github.com/JVSCHANDRADITHYA/ring-studio</div>
+        </div>
+        <span style="color:var(--muted);font-size:12px;">→</span>
+      </a>
+      <div class="link-pill" style="cursor:default;">
+        <span class="link-icon">◈</span>
+        <div class="link-content">
+          <div class="link-type">Dev Server</div>
+          <div class="link-url">localhost:5173</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <div class="section-number">02 — Architecture</div>
+  <h2 class="section-title">Three-layer<br><em>data flow</em></h2>
+
+  <div class="arch-grid">
+    <div class="arch-layer">
+      <div class="arch-layer-label">
+        <div class="layer-tag">Layer 01</div>
+        <div class="layer-name">Interactive 3D<br>Frontend UI</div>
+      </div>
+      <div class="arch-layer-body">
+        Built with Three.js / React Three Fiber. Renders GLTF ring models in a WebGL canvas with full orbit controls. Metal swaps — yellow, white, rose gold, platinum — and stone changes happen client-side with zero network overhead. A debounced REST call then syncs pricing.
+      </div>
+    </div>
+    <div class="arch-layer">
+      <div class="arch-layer-label">
+        <div class="layer-tag">Layer 02</div>
+        <div class="layer-name">REST API<br>Communication</div>
+      </div>
+      <div class="arch-layer-body">
+        Serialises every user selection into a structured JSON payload and dispatches it to WooCommerce asynchronously. Debouncing prevents request floods; optimistic UI updates keep the interface snappy even on slow connections.
+      </div>
+    </div>
+    <div class="arch-layer">
+      <div class="arch-layer-label">
+        <div class="layer-tag">Layer 03</div>
+        <div class="layer-name">Headless<br>WooCommerce</div>
+      </div>
+      <div class="arch-layer-body">
+        Single source of truth for products, variations, live pricing, and stock levels. The headless pattern decouples the React storefront from WordPress rendering, retaining WooCommerce's mature order, payment, and fulfilment workflows entirely intact.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-number">03 — Features</div>
+  <h2 class="section-title">Built for the<br><em>detail-obsessed</em></h2>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-index">F.01</div>
+      <div class="feature-name">Real-Time 3D Visualisation</div>
+      <div class="feature-desc">WebGL-rendered ring with full orbit, zoom, and pan. GLTF models load once and transform client-side.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-index">F.02</div>
+      <div class="feature-name">Metal & Finish Swapping</div>
+      <div class="feature-desc">Yellow gold, white gold, rose gold, platinum — one click. Material swap happens with zero network overhead.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-index">F.03</div>
+      <div class="feature-name">Stone Customisation</div>
+      <div class="feature-desc">Change gem type and carat weight. Model updates instantly, then a debounced call fetches the new price.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-index">F.04</div>
+      <div class="feature-name">Live Pricing Engine</div>
+      <div class="feature-desc">WooCommerce variation prices fetched on every selection change. Price badge animates to the new value.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-index">F.05</div>
+      <div class="feature-name">Inventory-Aware UI</div>
+      <div class="feature-desc">Out-of-stock combinations grey out before the user reaches the cart. No frustrating dead ends.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-index">F.06</div>
+      <div class="feature-name">No Page Reloads</div>
+      <div class="feature-desc">Async REST calls keep the entire experience fluid. Docker Compose spins the full stack in one command.</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- STACK -->
+<section id="stack">
+  <div class="section-number">04 — Technology Stack</div>
+  <h2 class="section-title">Built on a<br><em>precise</em> foundation</h2>
+
+  <table class="stack-table">
+    <thead>
+      <tr>
+        <th>Layer</th>
+        <th>Technology</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>3D Rendering</td>
+        <td>Three.js / React Three Fiber</td>
+        <td>WebGL scene, models, materials</td>
+      </tr>
+      <tr>
+        <td>Frontend</td>
+        <td>JavaScript (ES6+), CSS</td>
+        <td>UI components, state, styling</td>
+      </tr>
+      <tr>
+        <td>Build Tool</td>
+        <td>Vite</td>
+        <td>Dev server (port 5173) & bundler</td>
+      </tr>
+      <tr>
+        <td>API Bridge</td>
+        <td>REST / JSON</td>
+        <td>Frontend ↔ backend communication</td>
+      </tr>
+      <tr>
+        <td>Commerce</td>
+        <td>WooCommerce REST API v3</td>
+        <td>Products, pricing, inventory, orders</td>
+      </tr>
+      <tr>
+        <td>CMS / Backend</td>
+        <td>WordPress + WooCommerce</td>
+        <td>Admin, catalogue management</td>
+      </tr>
+      <tr>
+        <td>Containerisation</td>
+        <td>Docker Compose v3.8</td>
+        <td>Local dev & staging orchestration</td>
+      </tr>
+      <tr>
+        <td>Hosting</td>
+        <td>Vercel</td>
+        <td>Frontend CDN & CI/CD</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- GETTING STARTED -->
+<section id="start">
+  <div class="section-number">05 — Getting Started</div>
+  <h2 class="section-title">Up and running<br>in <em>four steps</em></h2>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:40px;">
+    <div class="step-card">
+      <div class="step-card-num">Step 01</div>
+      <div class="step-card-title">Clone the repo</div>
+      <div style="font-size:13px;color:var(--cream2);opacity:0.7;">Pull the source from GitHub and enter the project directory.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-card-num">Step 02</div>
+      <div class="step-card-title">Configure environment</div>
+      <div style="font-size:13px;color:var(--cream2);opacity:0.7;">Copy the .env.example and set your WooCommerce URL, consumer key, and secret.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-card-num">Step 03</div>
+      <div class="step-card-title">Start dev server</div>
+      <div style="font-size:13px;color:var(--cream2);opacity:0.7;">Run npm install and npm run dev inside the urumi-ring directory.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-card-num">Step 04</div>
+      <div class="step-card-title">Open in browser</div>
+      <div style="font-size:13px;color:var(--cream2);opacity:0.7;">Navigate to localhost:5173 — the configurator is live.</div>
+    </div>
+  </div>
+
+  <div class="code-block">
+    <span class="code-comment"># Clone</span><br>
+    <span class="code-cmd">git clone https://github.com/JVSCHANDRADITHYA/ring-studio.git</span><br>
+    <span class="code-cmd">cd ring-studio</span><br>
+    <br>
+    <span class="code-comment"># Environment</span><br>
+    <span class="code-cmd">cp urumi-ring/.env.example urumi-ring/.env</span><br>
+    <span class="code-comment"># → Set WOOCOMMERCE_URL, WC_CONSUMER_KEY, WC_CONSUMER_SECRET</span><br>
+    <br>
+    <span class="code-comment"># Launch</span><br>
+    <span class="code-cmd">cd urumi-ring && npm run dev</span><br>
+    <span class="code-comment"># → http://localhost:5173</span>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="section-number">06 — How It Works</div>
+  <h2 class="section-title">Six-step<br><em>interaction</em> flow</h2>
+
+  <div class="steps-list">
+    <div class="step-row">
+      <div class="step-num">1</div>
+      <div class="step-text"><strong>User opens the configurator</strong> — Three.js loads the GLTF ring model and renders it in a WebGL canvas.</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>User picks a metal</strong> — React state swaps the mesh material client-side. Zero network call. Instant.</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">3</div>
+      <div class="step-text"><strong>User picks a stone</strong> — Instant local swap, then a debounced REST call fires to WooCommerce.</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">4</div>
+      <div class="step-text"><strong>WooCommerce responds</strong> — Returns variation price and stock status for that exact combination.</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">5</div>
+      <div class="step-text"><strong>UI updates</strong> — Price badge animates to the new value; out-of-stock options grey out automatically.</div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">6</div>
+      <div class="step-text"><strong>User clicks Add to Cart</strong> — WooCommerce cart endpoint is called; standard checkout follows.</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="section-number">07 — Roadmap</div>
+  <h2 class="section-title">What comes<br><em>next</em></h2>
+
+  <div class="roadmap-grid">
+    <div class="roadmap-item">
+      <div class="roadmap-dot"></div>
+      <div class="roadmap-text">AR preview via WebXR — try the ring in real space</div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-dot"></div>
+      <div class="roadmap-text">Side-by-side comparison view for multiple configurations</div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-dot"></div>
+      <div class="roadmap-text">Save & share configuration links with shareable URLs</div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-dot"></div>
+      <div class="roadmap-text">GraphQL backend replacing the current REST layer</div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-dot"></div>
+      <div class="roadmap-text">Live engraving text preview directly on the 3D model</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Ring Studio</div>
+  <div class="footer-meta">
+    JVSCHANDRADITHYA<br>
+    chandradithya.dev/ringstudio/<br>
+    github.com/JVSCHANDRADITHYA/ring-studio
+  </div>
+</footer>
+
+</body>
+</html>
